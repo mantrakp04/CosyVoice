@@ -45,7 +45,7 @@ class CosyVoiceModel:
         # rtf and decoding related
         self.stream_scale_factor = 1
         assert self.stream_scale_factor >= 1, 'stream_scale_factor should be greater than 1, change it according to your actual rtf'
-        self.llm_context = torch.cuda.stream(self.device))
+        self.llm_context = torch.cuda.stream(self.device)
         self.lock = threading.Lock()
         # dict used to store session related variable
         self.tts_speech_token_dict = {}
