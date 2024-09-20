@@ -141,7 +141,7 @@ class CosyVoiceModel:
         with self.lock:
             self.tts_speech_token_dict[this_uuid], self.llm_end_dict[this_uuid] = [], False
             self.mel_overlap_dict[this_uuid], self.hift_cache_dict[this_uuid] = None, None
-        self.llm_context = torch.cuda.stream(torch.cuda.Stream())
+        self.llm_context = torch.cuda.stream(torch.cuda.Stream(self.device))
         p = threading.Thread(target=self.llm_job, args=(text, prompt_text, llm_prompt_speech_token, llm_embedding, this_uuid))
         p.start()
         if stream is True:
