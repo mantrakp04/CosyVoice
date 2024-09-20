@@ -27,7 +27,7 @@ class CosyVoiceModel:
                  llm: torch.nn.Module,
                  flow: torch.nn.Module,
                  hift: torch.nn.Module):
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device('cuda')
         self.llm = llm
         self.flow = flow
         self.hift = hift
@@ -54,12 +54,12 @@ class CosyVoiceModel:
         self.hift_cache_dict = {}
 
     def load(self, llm_model, flow_model, hift_model):
-        self.llm.load_state_dict(torch.load(llm_model, map_location=self.device))
+        self.llm.load_state_dict(torch.load(llm_model, map_location='cpu'))
         self.llm.to(self.device).eval()
         self.llm.half()
-        self.flow.load_state_dict(torch.load(flow_model, map_location=self.device))
+        self.flow.load_state_dict(torch.load(flow_model, map_location='cpu'))
         self.flow.to(self.device).eval()
-        self.hift.load_state_dict(torch.load(hift_model, map_location=self.device))
+        self.hift.load_state_dict(torch.load(hift_model, map_location='cpu'))
         self.hift.to(self.device).eval()
 
     def load_jit(self, llm_text_encoder_model, llm_llm_model, flow_encoder_model):
